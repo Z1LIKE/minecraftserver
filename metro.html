@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Схема Метро - ПикмиКвадроберы.ру</title>
+  <link rel="icon" href="https://joinserver.xyz/cat/images/minecraft-png-icon-16714.png" type="image/png" />
+  <style>
+    /* Я сохранил ваши оригинальные стили и добавил новые для карты метро. */
+    @font-face {
+      font-family: 'Minecraft';
+      src: url('fonts/minecraft.ttf') format('truetype'); /* Путь к вашему файлу шрифта */
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Minecraft', sans-serif;
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    h1, h2, h3, h4, h5, h6, summary {
+      color: #ff69b4;
+    }
+
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('2.png') no-repeat center center;
+      background-size: cover;
+      filter: blur(10px);
+      z-index: -1;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7em 1em;
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      font-size: 1.4em;
+      margin: 0;
+      animation: pulsePink 2.5s ease-in-out infinite;
+      text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493, 0 0 30px #ff69b4;
+    }
+
+    @keyframes pulsePink {
+      0%, 100% { color: #ff69b4; }
+      50% { color: #ff1493; }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5em;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1em;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #ff69b4;
+    }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .burger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background-color: rgba(0, 0, 0, 0.95);
+      position: absolute;
+      top: 60px;
+      right: 0;
+      width: 100%;
+      padding: 1em;
+      gap: 1em;
+      animation: slideDown 0.3s ease forwards;
+    }
+
+    .mobile-menu a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.1em;
+      padding: 0.5em 0;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .content {
+      padding: 7em 5vw 5vw;
+      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2em;
+      align-items: flex-start;
+    }
+
+    .info-box {
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1em;
+      background-color: rgba(17, 17, 17, 0.6);
+    }
+    
+    /* Стили для карты метро */
+    .metro-container {
+        flex: 3; /* Карта занимает больше места */
+        min-width: 300px;
+    }
+
+    #metro-map-svg {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        background-color: rgba(10, 10, 10, 0.5);
+        border: 1px solid #444;
+    }
+
+    .metro-line {
+        fill: none;
+        stroke-width: 8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .line-red { stroke: #ff6347; }
+    .line-green { stroke: #32cd32; }
+    .line-blue { stroke: #1e90ff; }
+    .line-yellow { stroke: #ffd700; }
+
+    .station {
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .station-circle {
+        stroke: #fff;
+        stroke-width: 3;
+    }
+    
+    .station-interchange .station-circle {
+        stroke-width: 4;
+        stroke: #ff69b4;
+    }
+
+    .station:hover .station-circle {
+        r: 12;
+    }
+    
+    .station.selected .station-circle {
+        fill: #ff69b4;
+        r: 14;
+    }
+
+    .station-label {
+        font-family: 'Minecraft', sans-serif;
+        font-size: 16px;
+        fill: #fff;
+        text-anchor: middle;
+        pointer-events: none;
+        text-transform: uppercase;
+        display: none; /* Скрыто по умолчанию */
+        transition: opacity 0.2s;
+    }
+    
+    .station:hover .station-label {
+        display: block; /* Показываем при наведении */
+    }
+    
+    #station-info-box {
+        flex: 1; /* Инфобокс занимает меньше места */
+        min-width: 250px;
+        height: fit-content;
+    }
+    
+    #station-info-box h2 {
+        margin-top: 0;
+    }
+
+    #station-info-box p {
+        margin: 0.5em 0;
+    }
+    
+    .line-indicator {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .burger { display: flex; }
+      .mobile-menu.show { display: flex; }
+      .navbar h1 { font-size: 1.2em; }
+      .content {
+        padding: 9em 4vw 4vw;
+        flex-direction: column;
+      }
+      body { font-size: 1em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+
+  <div class="navbar">
+    <h1>
+      <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+        <img src="https://joinserver.xyz/cat/images/minecraft-png-icon-16714.png" alt="Логотип" style="height: 1.5em; margin-right: 0.5em;" />
+        ПИКМИ КВАДРОБЕРЫ
+      </a>
+    </h1>
+    <div class="nav-links">
+      <a href="install.html">Скачать Майнкрафт</a>
+      <a href="metro.html">Схема Метро</a>
+      <a href="online.html">Мониторинг</a>
+      <a href="whitelist.html">Whitelist проекта</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+    <div class="burger" onclick="toggleMobileMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="install.html">Скачать Майнкрафт</a>
+      <a href="metro.html">Схема Метро</a>
+      <a href="online.html">Мониторинг</a>
+      <a href="whitelist.html">Whitelist проекта</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="metro-container info-box">
+        <h2>Схема Метро</h2>
+        <!-- SVG карта метро -->
+        <svg id="metro-map-svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+            <!-- Линии -->
+            <g id="lines">
+                <path class="metro-line line-red" d="M100,100 H700" />
+                <path class="metro-line line-green" d="M150,500 L150,50 L400,50 L400,300" />
+                <path class="metro-line line-blue" d="M100,300 H700" />
+                <path class="metro-line line-yellow" d="M650,50 V550" />
+            </g>
+            <!-- Станции -->
+            <g id="stations">
+                <!-- Красная линия -->
+                <g class="station" data-name="Шахта" data-line="Красная" data-coords="X: -250, Z: 100" data-info="Главное место добычи ресурсов.">
+                    <circle class="station-circle line-red" cx="100" cy="100" r="10" />
+                    <text class="station-label" x="100" y="80">Шахта</text>
+                </g>
+                <g class="station station-interchange" data-name="Центральный Хаб" data-line="Красная, Синяя" data-coords="X: 0, Z: 0" data-info="Главная пересадочная станция. Рядом находится рынок и спавн.">
+                    <circle class="station-circle line-red" cx="400" cy="100" r="10" />
+                    <text class="station-label" x="400" y="80">Центральный Хаб</text>
+                </g>
+                 <g class="station" data-name="Восточный Форпост" data-line="Красная" data-coords="X: 250, Z: 100" data-info="База на восточных территориях.">
+                    <circle class="station-circle line-red" cx="700" cy="100" r="10" />
+                    <text class="station-label" x="700" y="80">Восточный Форпост</text>
+                </g>
+
+                <!-- Зеленая линия -->
+                <g class="station" data-name="Фермы" data-line="Зеленая" data-coords="X: -150, Z: 400" data-info="Общественные фермы пшеницы, моркови и картофеля.">
+                    <circle class="station-circle line-green" cx="150" cy="500" r="10" />
+                    <text class="station-label" x="150" y="480">Фермы</text>
+                </g>
+                <g class="station station-interchange" data-name="Спавн" data-line="Зеленая, Синяя" data-coords="X: -150, Z: 0" data-info="Точка появления новых игроков.">
+                    <circle class="station-circle line-green" cx="150" cy="300" r="10" />
+                    <text class="station-label" x="150" y="280">Спавн</text>
+                </g>
+                <g class="station" data-name="Северная Деревня" data-line="Зеленая" data-coords="X: -150, Z: -200" data-info="Деревня жителей на севере.">
+                    <circle class="station-circle line-green" cx="150" cy="50" r="10" />
+                    <text class="station-label" x="150" y="30">Северная Деревня</text>
+                </g>
+                <g class="station station-interchange" data-name="Центральный Хаб" data-line="Красная, Синяя, Зеленая" data-coords="X: 0, Z: 0" data-info="Главная пересадочная станция. Рядом находится рынок и спавн.">
+                    <circle class="station-circle line-green" cx="400" cy="50" r="10" />
+                    <text class="station-label" x="400" y="30">Центральный Хаб</text>
+                </g>
+
+
+                <!-- Синяя линия -->
+                <g class="station" data-name="Портал в Ад" data-line="Синяя" data-coords="X: 250, Z: 0" data-info="Прямой доступ в Нижний мир.">
+                    <circle class="station-circle line-blue" cx="700" cy="300" r="10" />
+                    <text class="station-label" x="700" y="280">Портал в Ад</text>
+                </g>
+                 <g class="station station-interchange" data-name="Центральный Хаб" data-line="Красная, Синяя" data-coords="X: 0, Z: 0" data-info="Главная пересадочная станция. Рядом находится рынок и спавн.">
+                    <circle class="station-circle line-blue" cx="400" cy="300" r="10" />
+                    <text class="station-label" x="400" y="320">Центральный Хаб</text>
+                </g>
+                
+                <!-- Желтая линия -->
+                 <g class="station" data-name="Верхний мир" data-line="Желтая" data-coords="X: 200, Z: -200" data-info="Выход на поверхность.">
+                    <circle class="station-circle line-yellow" cx="650" cy="50" r="10" />
+                    <text class="station-label" x="650" y="30">Верхний мир</text>
+                </g>
+                 <g class="station" data-name="Нижний мир" data-line="Желтая" data-coords="X: 200, Z: 450" data-info="Вход в подземелье.">
+                    <circle class="station-circle line-yellow" cx="650" cy="550" r="10" />
+                    <text class="station-label" x="650" y="570">Нижний мир</text>
+                </g>
+                <g class="station station-interchange" data-name="Портал в Ад" data-line="Синяя, Желтая" data-coords="X: 250, Z: 0" data-info="Прямой доступ в Нижний мир.">
+                    <circle class="station-circle line-yellow" cx="650" cy="300" r="10" />
+                    <text class="station-label" x="630" y="320">Портал в Ад</text>
+                </g>
+
+            </g>
+        </svg>
+    </div>
+    <div id="station-info-box" class="info-box">
+        <h2>Информация о станции</h2>
+        <p>Нажмите на станцию на карте, чтобы увидеть подробности.</p>
+    </div>
+  </div>
+
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobileMenu");
+      menu.classList.toggle("show");
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const stations = document.querySelectorAll('.station');
+        const stationInfoBox = document.getElementById('station-info-box');
+        let lastSelected = null;
+
+        stations.forEach(station => {
+            station.addEventListener('click', () => {
+                // Снимаем выделение с предыдущей станции
+                if (lastSelected) {
+                    lastSelected.classList.remove('selected');
+                }
+                // Выделяем текущую
+                station.classList.add('selected');
+                lastSelected = station;
+
+                const name = station.dataset.name;
+                const lines = station.dataset.line.split(', ');
+                const coords = station.dataset.coords;
+                const info = station.dataset.info;
+
+                let linesHtml = '';
+                lines.forEach(line => {
+                    let colorClass = '';
+                    if (line.toLowerCase().includes('красная')) colorClass = 'line-red';
+                    if (line.toLowerCase().includes('зеленая')) colorClass = 'line-green';
+                    if (line.toLowerCase().includes('синяя')) colorClass = 'line-blue';
+                    if (line.toLowerCase().includes('желтая')) colorClass = 'line-yellow';
+                    linesHtml += `<p><span class="line-indicator" style="background-color: ${getLineColor(colorClass)};"></span>${line} ветка</p>`;
+                });
+
+                stationInfoBox.innerHTML = `
+                    <h2>${name}</h2>
+                    <p><strong>Координаты:</strong> ${coords}</p>
+                    <p><strong>Описание:</strong> ${info}</p>
+                    <hr style="border-color: #333; margin: 1em 0;">
+                    <p><strong>Линии:</strong></p>
+                    ${linesHtml}
+                `;
+            });
+        });
+        
+        function getLineColor(className) {
+            switch(className) {
+                case 'line-red': return '#ff6347';
+                case 'line-green': return '#32cd32';
+                case 'line-blue': return '#1e90ff';
+                case 'line-yellow': return '#ffd700';
+                default: return '#fff';
+            }
+        }
+    });
+  </script>
+</body>
+</html>
