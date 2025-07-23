@@ -2,9 +2,17 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PikmiKvadrovery.ru</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ПИКМИ КВАДРОБЕРЫ</title>
+  <link rel="icon" href="https://joinserver.xyz/cat/images/minecraft-png-icon-16714.png" type="image/png" />
   <style>
+    @font-face {
+      font-family: 'Minecraft';
+      src: url('fonts/minecraft.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -34,11 +42,37 @@
     }
 
     h1 {
+      font-family: 'Minecraft', Arial, sans-serif;
       text-align: center;
       font-size: 1.8em;
       margin-bottom: 1.5em;
+      user-select: none;
+      animation: pulsePink 2.5s ease-in-out infinite;
       color: #ff69b4;
-      text-shadow: 0 0 10px rgba(255, 105, 180, 0.8), 0 0 20px rgba(255, 105, 180, 0.5);
+      text-shadow:
+        0 0 5px #ff69b4,
+        0 0 10px #ff69b4,
+        0 0 15px #ff69b4,
+        0 0 20px #ff69b4;
+    }
+
+    @keyframes pulsePink {
+      0%, 100% {
+        color: #ff69b4;
+        text-shadow:
+          0 0 5px #ff69b4,
+          0 0 10px #ff69b4,
+          0 0 15px #ff69b4,
+          0 0 20px #ff69b4;
+      }
+      50% {
+        color: #ff1493;
+        text-shadow:
+          0 0 7px #ff1493,
+          0 0 12px #ff1493,
+          0 0 17px #ff1493,
+          0 0 22px #ff1493;
+      }
     }
 
     details {
@@ -53,8 +87,9 @@
     summary {
       cursor: pointer;
       font-size: 1.2em;
-      font-weight: bold;
+      font-weight: normal;
       margin-bottom: 0.5em;
+      user-select: none;
     }
 
     .command {
@@ -66,6 +101,7 @@
       cursor: pointer;
       color: #90ee90;
       text-decoration: underline;
+      user-select: none;
     }
 
     @media (max-width: 600px) {
@@ -82,7 +118,6 @@
       }
     }
   </style>
-
   <script>
     function copyIP() {
       const ip = document.getElementById("ip").textContent;
@@ -92,7 +127,6 @@
     }
   </script>
 </head>
-
 <body>
 
   <div class="background"></div>
@@ -113,8 +147,6 @@
         <ol>
           <li>Z1LIKE</li>
           <li>Hakaina24</li>
-          <li>Smirilass</li>
-          <li>Vestnik</li>
         </ol>
       </details>
     </details>
@@ -149,7 +181,6 @@
         <p><span class="command">/back [Ник]</span> — Вернуть игрока на последнюю позицию.</p>
         <p><span class="command">/tpcancel [Ник]</span> — Отменить телепортационный запрос.</p>
       </details>
-
     </details>
 
     <!-- Карта метро -->
