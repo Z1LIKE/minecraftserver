@@ -41,18 +41,19 @@
       top: 0;
       left: 0;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: rgba(0, 0, 0, 0.85);
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.5em 2em;
+      padding: 0.7em 1em;
       z-index: 10;
+      flex-wrap: wrap;
     }
 
     .navbar h1 {
       font-family: 'Minecraft', Arial, sans-serif;
-      font-size: 1.5em;
+      font-size: 1.4em;
       margin: 0;
       color: #ff69b4;
       animation: pulsePink 2.5s ease-in-out infinite;
@@ -61,7 +62,8 @@
 
     .nav-links {
       display: flex;
-      gap: 2em;
+      gap: 1.5em;
+      flex-wrap: wrap;
     }
 
     .nav-links a {
@@ -81,7 +83,7 @@
     }
 
     .content {
-      padding: 7em 5vw 5vw; /* учтена высота navbar */
+      padding: 7em 5vw 5vw;
       background-color: rgba(0, 0, 0, 0.6);
       min-height: 100vh;
     }
@@ -134,16 +136,38 @@
       .navbar {
         flex-direction: column;
         align-items: flex-start;
+        padding: 0.8em 1em;
+      }
+
+      .navbar h1 {
+        font-size: 1.2em;
+        margin-bottom: 0.5em;
       }
 
       .nav-links {
-        flex-direction: column;
-        gap: 0.5em;
-        margin-top: 0.5em;
+        width: 100%;
+        justify-content: space-between;
+        gap: 1em;
+      }
+
+      .nav-links a {
+        font-size: 1em;
       }
 
       .content {
-        padding: 8em 4vw 4vw;
+        padding: 9em 4vw 4vw;
+      }
+
+      summary {
+        font-size: 1.05em;
+      }
+
+      .info-box h2 {
+        font-size: 1.2em;
+      }
+
+      body {
+        font-size: 1em;
       }
     }
   </style>
@@ -162,9 +186,9 @@
   <div class="navbar">
     <h1>ПИКМИ КВАДРОБЕРЫ</h1>
     <div class="nav-links">
-      <a href="faq.html">Мониторинг</a>
-      <a href="ip.html">Связь с администрацией</a>
-      <a href="admins.html">FAQ</a>
+      <a href="faq.html">FAQ</a>
+      <a href="ip.html">IP</a>
+      <a href="admins.html">Админы</a>
     </div>
   </div>
 
