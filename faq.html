@@ -61,11 +61,7 @@
       margin: 0;
       animation: pulsePink 2.5s ease-in-out infinite;
       text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493, 0 0 30px #ff69b4;
-    }
-
-    @keyframes pulsePink {
-      0%, 100% { color: #ff69b4; }
-      50% { color: #ff1493; }
+      text-transform: uppercase; /* Сделано капсом */
     }
 
     .nav-links {
@@ -78,6 +74,7 @@
       text-decoration: none;
       font-size: 1em;
       transition: color 0.3s ease;
+      text-transform: uppercase; /* Сделано капсом */
     }
 
     .nav-links a:hover {
@@ -115,6 +112,7 @@
       text-decoration: none;
       font-size: 1.1em;
       padding: 0.5em 0;
+      text-transform: uppercase; /* Сделано капсом */
     }
 
     @keyframes slideDown {
@@ -191,11 +189,11 @@
 
   <div class="navbar">
     <h1>
-  <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
-    <img src="https://joinserver.xyz/cat/images/minecraft-png-icon-16714.png" alt="Логотип" style="height: 1.5em; margin-right: 0.5em;" />
-    ПИКМИ КВАДРОБЕРЫ
-  </a>
-</h1>
+      <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+        <img src="https://joinserver.xyz/cat/images/minecraft-png-icon-16714.png" alt="Логотип" style="height: 1.5em; margin-right: 0.5em;" />
+        ПИКМИ КВАДРОБЕРЫ
+      </a>
+    </h1>
     <div class="nav-links">
       <a href="install.html">Скачать Майнкрафт</a>
       <a href="metro.html">Схема Метро</a>
