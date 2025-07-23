@@ -3,76 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ПИКМИ КВАДРОБЕРЫ</title>
+  <title>ПикмиКвадроберы.ру</title>
   <link rel="icon" href="https://joinserver.xyz/cat/images/minecraft-png-icon-16714.png" type="image/png" />
   <style>
     @font-face {
       font-family: 'Minecraft';
       src: url('fonts/minecraft.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
     }
 
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
       font-size: 1.1em;
       line-height: 1.6;
       color: #fff;
+      height: 100%;
+      overflow-x: hidden;
     }
 
-    .background {
+    .background-wrapper {
       position: fixed;
       top: 0;
       left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
+    }
+
+    .background {
       width: 100%;
       height: 100%;
       background: url('2.png') no-repeat center center;
       background-size: cover;
       filter: blur(10px);
-      z-index: -1;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.55);
+      z-index: 1;
+    }
+
+    .page {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 40vh;
+      text-align: center;
+    }
+
+    .logo h1 {
+      font-family: 'Minecraft', sans-serif;
+      font-size: 4em;
+      color: #a8ffb0;
+      text-shadow:
+        1px 1px 0 #2c2c2c,
+        2px 2px 0 #2c2c2c,
+        3px 3px 0 #2c2c2c,
+        4px 4px 6px rgba(0, 255, 0, 0.5);
+      margin: 0;
+      user-select: none;
     }
 
     .content {
-      position: relative;
-      padding: 5vw;
+      padding: 2vw;
       background-color: rgba(0, 0, 0, 0.6);
-      min-height: 100vh;
-    }
-
-    h1 {
-      font-family: 'Minecraft', Arial, sans-serif;
-      text-align: center;
-      font-size: 1.8em;
-      margin-bottom: 1.5em;
-      user-select: none;
-      animation: pulsePink 2.5s ease-in-out infinite;
-      color: #ff69b4;
-      text-shadow:
-        0 0 5px #ff69b4,
-        0 0 10px #ff69b4,
-        0 0 15px #ff69b4,
-        0 0 20px #ff69b4;
-    }
-
-    @keyframes pulsePink {
-      0%, 100% {
-        color: #ff69b4;
-        text-shadow:
-          0 0 5px #ff69b4,
-          0 0 10px #ff69b4,
-          0 0 15px #ff69b4,
-          0 0 20px #ff69b4;
-      }
-      50% {
-        color: #ff1493;
-        text-shadow:
-          0 0 7px #ff1493,
-          0 0 12px #ff1493,
-          0 0 17px #ff1493,
-          0 0 22px #ff1493;
-      }
+      border-radius: 8px;
+      margin: 0 2vw 2vw 2vw;
     }
 
     details {
@@ -81,14 +91,11 @@
       border-radius: 8px;
       padding: 0.8em;
       background-color: rgba(17, 17, 17, 0.6);
-      transition: background-color 0.3s ease;
     }
 
     summary {
       cursor: pointer;
       font-size: 1.2em;
-      font-weight: normal;
-      margin-bottom: 0.5em;
       user-select: none;
     }
 
@@ -105,12 +112,8 @@
     }
 
     @media (max-width: 600px) {
-      .content {
-        padding: 4vw;
-      }
-
-      h1 {
-        font-size: 1.5em;
+      .logo h1 {
+        font-size: 2.5em;
       }
 
       summary {
@@ -118,80 +121,87 @@
       }
     }
   </style>
+
   <script>
     function copyIP() {
       const ip = document.getElementById("ip").textContent;
       navigator.clipboard.writeText(ip).then(() => {
-        alert("IP-адрес скопирован: " + ip);
+        alert("IP-адрес скопирован. Ctrl+V, чтобы вставить в игру: " + ip);
       });
     }
   </script>
 </head>
+
 <body>
-
-  <div class="background"></div>
-
-  <div class="content">
-    <h1>ПИКМИ КВАДРОБЕРЫ</h1>
-
-    <!-- Информация -->
-    <details open>
-      <summary>Информация</summary>
-      <p><strong>Название сервера:</strong> ПИКМИ КВАДРОБЕРЫ</p>
-      <p><strong>IP Адрес:</strong> <span id="ip" onclick="copyIP()">107.161.154.218:25594</span> (Нажми для копирования)</p>
-      <p><strong>Версия игры:</strong> 1.21.7, либо Bedrock Edition</p>
-      <p><strong>Администраторы сервера:</strong> Z1LIKE, Hakaina24</p>
-
-      <details>
-        <summary>Whitelist игроков</summary>
-        <ol>
-          <li>Z1LIKE</li>
-          <li>Hakaina24</li>
-          <li>Smirilass</li>
-          <li>Vestnik</li>
-        </ol>
-      </details>
-    </details>
-
-    <!-- Команды -->
-    <details>
-      <summary>Команды</summary>
-
-      <details>
-        <summary>Основные команды</summary>
-        <p><span class="command">/back</span> — Вернуться на место смерти.</p>
-        <p><span class="command">/home</span> — Телепортироваться домой.</p>
-        <p><span class="command">/tpa [Ник]</span> — Запрос на телепортацию к игроку.</p>
-        <p><span class="command">/tpahere [Ник]</span> — Запрос, чтобы телепортировать игрока к вам.</p>
-      </details>
-
-      <details>
-        <summary>Команды для дома</summary>
-        <p><span class="command">/sethome</span> — Установить точку дома (макс. 1).</p>
-        <p><span class="command">/deletehome</span> — Удалить точку дома.</p>
-      </details>
-
-      <details>
-        <summary>Дополнительные команды телепортации</summary>
-        <p><span class="command">/tpauto</span> — Автоматически принимать запросы /tpa.</p>
-        <p><span class="command">/tpaignore [Ник]</span> — Игнорировать запросы от игрока.</p>
-        <p><span class="command">/tpaccept</span> — Принять запрос на телепортацию.</p>
-        <p><span class="command">/tpahereall</span> — Отправить запрос телепортации всем.</p>
-        <p><span class="command">/tpatoggle</span> — Включить/выключить телепортацию к вам.</p>
-        <p><span class="command">/tpatoggle [Ник]</span> — Включить/выключить телепортацию конкретному игроку.</p>
-        <p><span class="command">/tpdeny</span> — Отклонить запрос на телепортацию.</p>
-        <p><span class="command">/back [Ник]</span> — Вернуть игрока на последнюю позицию.</p>
-        <p><span class="command">/tpcancel [Ник]</span> — Отменить телепортационный запрос.</p>
-      </details>
-    </details>
-
-    <!-- Карта метро -->
-    <details>
-      <summary>Карта метро</summary>
-      <p>Здесь будет карта метро. (Когда я его построю)</p>
-    </details>
-
+  <div class="background-wrapper">
+    <div class="background"></div>
+    <div class="overlay"></div>
   </div>
 
+  <div class="page">
+
+    <div class="logo">
+      <h1>ПИКМИ КВАДРОБЕРЫ</h1>
+    </div>
+
+    <div class="content">
+
+      <details open>
+        <summary>Информация</summary>
+        <p><strong>Название сервера:</strong> ПИКМИ КВАДРОБЕРЫ</p>
+        <p><strong>IP Адрес:</strong> <span id="ip" onclick="copyIP()">107.161.154.218:25594</span> (Нажми для копирования)</p>
+        <p><strong>Версия игры:</strong> 1.21.7, либо Bedrock Edition</p>
+        <p><strong>Администраторы сервера:</strong> Z1LIKE, Hakaina24</p>
+
+        <details>
+          <summary>Whitelist игроков</summary>
+          <ol>
+            <li>Z1LIKE</li>
+            <li>Hakaina24</li>
+            <li>Smirilass</li>
+            <li>Vestnik</li>
+          </ol>
+        </details>
+      </details>
+
+      <details>
+        <summary>Команды</summary>
+
+        <details>
+          <summary>Основные команды</summary>
+          <p><span class="command">/back</span> — Вернуться на место смерти.</p>
+          <p><span class="command">/home</span> — Телепортироваться домой.</p>
+          <p><span class="command">/tpa [Ник]</span> — Запрос на телепортацию к игроку.</p>
+          <p><span class="command">/tpahere [Ник]</span> — Запрос, чтобы телепортировать игрока к вам.</p>
+        </details>
+
+        <details>
+          <summary>Команды для дома</summary>
+          <p><span class="command">/sethome</span> — Установить точку дома (макс. 1).</p>
+          <p><span class="command">/deletehome</span> — Удалить точку дома.</p>
+        </details>
+
+        <details>
+          <summary>Дополнительные команды телепортации</summary>
+          <p><span class="command">/tpauto</span> — Автоматически принимать запросы /tpa.</p>
+          <p><span class="command">/tpaignore [Ник]</span> — Игнорировать запросы от игрока.</p>
+          <p><span class="command">/tpaccept</span> — Принять запрос на телепортацию.</p>
+          <p><span class="command">/tpahereall</span> — Отправить запрос телепортации всем.</p>
+          <p><span class="command">/tpatoggle</span> — Включить/выключить телепортацию к вам.</p>
+          <p><span class="command">/tpatoggle [Ник]</span> — Включить/выключить телепортацию конкретному игроку.</p>
+          <p><span class="command">/tpdeny</span> — Отклонить запрос на телепортацию.</p>
+          <p><span class="command">/back [Ник]</span> — Вернуть игрока на последнюю позицию.</p>
+          <p><span class="command">/tpcancel [Ник]</span> — Отменить телепортационный запрос.</p>
+        </details>
+      </details>
+
+      <details>
+        <summary>Карта метро</summary>
+        <p>Здесь будет карта метро. (Когда я его построю)</p>
+      </details>
+
+    </div>
+
+  </div>
 </body>
 </html>
