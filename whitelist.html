@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ПикмиКвадроберы.ру — Whitelist</title>
+  <link rel="icon" href="https://joinserver.xyz/cat/images/minecraft-png-icon-16714.png" type="image/png" />
+  <style>
+    @font-face {
+      font-family: 'Minecraft';
+      src: url('fonts/minecraft.ttf') format('truetype');
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #fff;
+    }
+
+    h1, h2, summary {
+      font-family: 'Minecraft', sans-serif;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #ff69b4; /* Розовый цвет */
+    }
+
+    .minecraft-font {
+      font-family: 'Minecraft', sans-serif !important;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #ff69b4;
+    }
+
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('3.png') no-repeat center center;
+      background-size: cover;
+      filter: blur(10px);
+      z-index: -1;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7em 1em;
+      z-index: 100;
+    }
+
+    .navbar h1 {
+      font-size: 1.4em;
+      margin: 0;
+      animation: pulsePink 2.5s ease-in-out infinite;
+      text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493, 0 0 30px #ff69b4;
+    }
+
+    @keyframes pulsePink {
+      0%, 100% { color: #ff69b4; }
+      50% { color: #ff1493; }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5em;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1em;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #ff69b4;
+    }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .burger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background-color: rgba(0, 0, 0, 0.95);
+      position: absolute;
+      top: 60px;
+      right: 0;
+      width: 100%;
+      padding: 1em;
+      gap: 1em;
+      animation: slideDown 0.3s ease forwards;
+    }
+
+    .mobile-menu a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.1em;
+      padding: 0.5em 0;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .content {
+      padding: 7em 5vw 5vw;
+      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+    }
+
+    .info-box {
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1em;
+      margin-bottom: 2em;
+      background-color: rgba(17, 17, 17, 0.6);
+    }
+
+    details {
+      margin-bottom: 1.5em;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 0.8em;
+      background-color: rgba(17, 17, 17, 0.6);
+      transition: background-color 0.3s ease;
+    }
+
+    summary {
+      cursor: pointer;
+      font-size: 1.2em;
+      margin-bottom: 0.5em;
+      user-select: none;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .burger {
+        display: flex;
+      }
+
+      .mobile-menu {
+        display: none;
+      }
+
+      .mobile-menu.show {
+        display: flex;
+      }
+
+      .navbar h1 {
+        font-size: 1.2em;
+      }
+
+      .content {
+        padding: 9em 4vw 4vw;
+      }
+
+      body {
+        font-size: 1em;
+      }
+    }
+  </style>
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobileMenu");
+      menu.classList.toggle("show");
+    }
+  </script>
+</head>
+<body>
+  <div class="background"></div>
+
+  <div class="navbar">
+	<h1><a href="index.html" style="text-decoration: none; color: inherit;">ПИКМИ КВАДРОБЕРЫ</a></h1>
+    <div class="nav-links">
+      <a href="whitelist.html" class="minecraft-font">Whitelist проекта</a>
+      <a href="online.html" class="minecraft-font">Мониторинг</a>
+      <a href="install.html" class="minecraft-font">Скачать Майнкрафт</a>
+      <a href="faq.html" class="minecraft-font">FAQ</a>
+      <a href="report.html" class="minecraft-font">Связь с администрацией</a>
+    </div>
+    <div class="burger" onclick="toggleMobileMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="whitelist.html" class="minecraft-font">Whitelist проекта</a>
+      <a href="online.html" class="minecraft-font">Мониторинг</a>
+      <a href="install.html" class="minecraft-font">Скачать Майнкрафт</a>
+      <a href="faq.html" class="minecraft-font">FAQ</a>
+      <a href="report.html" class="minecraft-font">Связь с администрацией</a>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Оставляем только Whitelist -->
+    <details open>
+      <summary>Whitelist игроков</summary>
+      <ol>
+        <li>Z1LIKE</li>
+        <li>Hakaina24</li>
+        <li>Smirilass</li>
+        <li>Vestnik</li>
+		<li>HellChair</li>
+        <li>Z1LIKE1944</li>
+      </ol>
+    </details>
+  </div>
+</body>
+</html>
