@@ -24,6 +24,20 @@
       color: #fff;
     }
 
+    h1, h2, h3, h4, h5, h6, summary {
+      font-family: 'Minecraft', sans-serif;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #ff69b4; /* Розовый цвет */
+    }
+
+    .minecraft-font {
+      font-family: 'Minecraft', sans-serif !important;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #ff69b4;
+    }
+
     .background {
       position: fixed;
       top: 0;
@@ -51,10 +65,8 @@
     }
 
     .navbar h1 {
-      font-family: 'Minecraft', Arial, sans-serif;
       font-size: 1.4em;
       margin: 0;
-      color: #ff69b4;
       animation: pulsePink 2.5s ease-in-out infinite;
       text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493, 0 0 30px #ff69b4;
     }
@@ -133,10 +145,8 @@
     }
 
     h2 {
-      font-family: 'Minecraft', Arial, sans-serif;
       font-size: 1.4em;
       margin-top: 0;
-      color: #ff69b4;
     }
 
     details {
@@ -151,7 +161,6 @@
     summary {
       cursor: pointer;
       font-size: 1.2em;
-      font-weight: normal;
       margin-bottom: 0.5em;
       user-select: none;
     }
@@ -216,11 +225,14 @@
   <div class="background"></div>
 
   <div class="navbar">
-    <h1>ПИКМИ КВАДРОБЕРЫ</h1>
+    <h1><a href="index.html" style="text-decoration: none; color: inherit;">ПИКМИ КВАДРОБЕРЫ</a></h1>
     <div class="nav-links">
-      <a href="online.html">Игроки онлайн</a>
-      <a href="report.html">Связь с администрацией</a>
-      <a href="faq.html">FAQ</a>
+      <a href="whitelist.html" class="minecraft-font">Whitelist проекта</a>
+      <a href="online.html" class="minecraft-font">Мониторинг</a>
+      <a href="install.html" class="minecraft-font">Скачать Майнкрафт</a>
+      <a href="faq.html" class="minecraft-font">FAQ</a>
+      <a href="report.html" class="minecraft-font">Связь с администрацией</a>
+
     </div>
     <div class="burger" onclick="toggleMobileMenu()">
       <div></div>
@@ -228,30 +240,21 @@
       <div></div>
     </div>
     <div id="mobileMenu" class="mobile-menu">
-      <a href="online.html">Игроки онлайн</a>
-      <a href="report.html">Связь с администрацией</a>
-      <a href="faq.html">FAQ</a>
+      <a href="whitelist.html" class="minecraft-font">Whitelist проекта</a>
+      <a href="online.html" class="minecraft-font">Мониторинг</a>
+      <a href="install.html" class="minecraft-font">Скачать Майнкрафт</a>
+      <a href="faq.html" class="minecraft-font">FAQ</a>
+      <a href="report.html" class="minecraft-font">Связь с администрацией</a>
     </div>
   </div>
 
   <div class="content">
     <div class="info-box">
       <h2>Информация</h2>
-      <p><strong>Название сервера:</strong> ПИКМИ КВАДРОБЕРЫ</p>
-      <p><strong>IP Адрес:</strong> <span id="ip" onclick="copyIP()">107.161.154.218:25594</span> (Нажми для копирования)</p>
+      <p><strong>IP Адрес сервера:</strong> <span id="ip" onclick="copyIP()">107.161.154.218:25594</span> (Нажми для копирования)</p>
       <p><strong>Версия игры:</strong> 1.21.7, либо Bedrock Edition</p>
       <p><strong>Администраторы сервера:</strong> Z1LIKE, Hakaina24</p>
     </div>
-
-    <details open>
-      <summary>Whitelist игроков</summary>
-      <ol>
-        <li>Z1LIKE</li>
-        <li>Hakaina24</li>
-        <li>Smirilass</li>
-        <li>Vestnik</li>
-      </ol>
-    </details>
 
     <details>
       <summary>Команды</summary>
