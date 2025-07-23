@@ -47,8 +47,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0.7em 1em;
-      z-index: 10;
-      flex-wrap: wrap;
+      z-index: 100;
     }
 
     .navbar h1 {
@@ -60,10 +59,14 @@
       text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493, 0 0 30px #ff69b4;
     }
 
+    @keyframes pulsePink {
+      0%, 100% { color: #ff69b4; }
+      50% { color: #ff1493; }
+    }
+
     .nav-links {
       display: flex;
       gap: 1.5em;
-      flex-wrap: wrap;
     }
 
     .nav-links a {
@@ -77,9 +80,42 @@
       color: #ff69b4;
     }
 
-    @keyframes pulsePink {
-      0%, 100% { color: #ff69b4; }
-      50% { color: #ff1493; }
+    .burger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .burger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background-color: rgba(0, 0, 0, 0.95);
+      position: absolute;
+      top: 60px;
+      right: 0;
+      width: 100%;
+      padding: 1em;
+      gap: 1em;
+      animation: slideDown 0.3s ease forwards;
+    }
+
+    .mobile-menu a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.1em;
+      padding: 0.5em 0;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .content {
@@ -132,38 +168,29 @@
       user-select: none;
     }
 
-    @media (max-width: 600px) {
-      .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 0.8em 1em;
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .burger {
+        display: flex;
+      }
+
+      .mobile-menu {
+        display: none;
+      }
+
+      .mobile-menu.show {
+        display: flex;
       }
 
       .navbar h1 {
         font-size: 1.2em;
-        margin-bottom: 0.5em;
-      }
-
-      .nav-links {
-        width: 100%;
-        justify-content: space-between;
-        gap: 1em;
-      }
-
-      .nav-links a {
-        font-size: 1em;
       }
 
       .content {
         padding: 9em 4vw 4vw;
-      }
-
-      summary {
-        font-size: 1.05em;
-      }
-
-      .info-box h2 {
-        font-size: 1.2em;
       }
 
       body {
@@ -178,6 +205,11 @@
         alert("IP-адрес скопирован. Ctrl+V, чтобы вставить в игру: " + ip);
       });
     }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobileMenu");
+      menu.classList.toggle("show");
+    }
   </script>
 </head>
 <body>
@@ -186,6 +218,16 @@
   <div class="navbar">
     <h1>ПИКМИ КВАДРОБЕРЫ</h1>
     <div class="nav-links">
+      <a href="faq.html">FAQ</a>
+      <a href="ip.html">IP</a>
+      <a href="admins.html">Админы</a>
+    </div>
+    <div class="burger" onclick="toggleMobileMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div id="mobileMenu" class="mobile-menu">
       <a href="faq.html">FAQ</a>
       <a href="ip.html">IP</a>
       <a href="admins.html">Админы</a>
