@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ПИКМИ КВАДРОБЕРЫ Minecraft Server</title>
   <style>
     body {
@@ -18,13 +18,22 @@
       text-align: center;
       color: white;
       font-size: 1.8em;
-      margin-bottom: 1.2em;
+      margin-bottom: 1.5em;
     }
 
-    h2 {
-      font-size: 1.3em;
-      margin-top: 2em;
-      margin-bottom: 0.6em;
+    details {
+      margin-bottom: 1.5em;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 0.8em;
+      background-color: #111;
+    }
+
+    summary {
+      cursor: pointer;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 0.5em;
     }
 
     .command {
@@ -42,8 +51,8 @@
         font-size: 1.5em;
       }
 
-      h2 {
-        font-size: 1.2em;
+      summary {
+        font-size: 1.1em;
       }
     }
   </style>
@@ -52,22 +61,21 @@
 
   <h1>Команды на сервере ПИКМИ КВАДРОБЕРЫ</h1>
 
-
-  <div class="section">
-    <h2>Основные команды для телепортации</h2>
+  <details>
+    <summary>Основные команды для телепортации</summary>
     <p><span class="command">/back</span> - Вернуться на место смерти.</p>
-  </div>
-  
-  <div class="section">
-    <h2>Команды для дома:</h2>
+  </details>
+
+  <details>
+    <summary>Команды для дома</summary>
     <p><span class="command">/sethome</span> - Поставить точку дома (Максимум 1 точка).</p>
     <p><span class="command">/home</span> - Телепортироваться домой.</p>
     <p><span class="command">/deletehome</span> - Удалить точку дома.</p>
     <p><span class="command">/back</span> - Вернуться на место смерти.</p>
-  </div>
+  </details>
 
-  <div class="section">
-    <h2>Команды для телепорта к игрокам:</h2>
+  <details>
+    <summary>Команды для телепорта к игрокам</summary>
     <p><span class="command">/tpa [Ник игрока]</span> - Запрос на телепортацию к игроку.</p>
     <p><span class="command">/tpahere [игрок]</span> - Запрос на телепортацию, чтобы телепортировать игрока к вам.</p>
     <p><span class="command">/tpauto</span> - Авто принимает /tpa запросы от других людей.</p>
@@ -80,7 +88,7 @@
     <p><span class="command">/back</span> - Телепортирует вас в ваше последнее место.</p>
     <p><span class="command">/back [игрок]</span> - Возвращает игрока на свою последнюю позицию.</p>
     <p><span class="command">/tpcansel [игрок]</span> - Отменяет запрос на телепортацию конкретному игроку.</p>
-  </div>
+  </details>
 
 </body>
 </html>
