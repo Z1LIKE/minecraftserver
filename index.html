@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ПИКМИ КВАДРОБЕРЫ</title>
+  <title>PikmiKvadrovery.ru</title>
   <style>
     body {
       margin: 0;
@@ -46,7 +46,7 @@
       border: 1px solid #333;
       border-radius: 8px;
       padding: 0.8em;
-      background-color: rgba(17, 17, 17, 0.6); /* ещё более прозрачный фон */
+      background-color: rgba(17, 17, 17, 0.6);
       transition: background-color 0.3s ease;
     }
 
@@ -60,6 +60,12 @@
     .command {
       color: yellow;
       font-weight: bold;
+    }
+
+    #ip {
+      cursor: pointer;
+      color: #90ee90;
+      text-decoration: underline;
     }
 
     @media (max-width: 600px) {
@@ -76,7 +82,17 @@
       }
     }
   </style>
+
+  <script>
+    function copyIP() {
+      const ip = document.getElementById("ip").textContent;
+      navigator.clipboard.writeText(ip).then(() => {
+        alert("IP-адрес скопирован: " + ip);
+      });
+    }
+  </script>
 </head>
+
 <body>
 
   <div class="background"></div>
@@ -84,34 +100,64 @@
   <div class="content">
     <h1>ПИКМИ КВАДРОБЕРЫ</h1>
 
-    <details>
-      <summary>Основные команды для телепортации</summary>
-      <p><span class="command">/back</span> - Вернуться на место смерти.</p>      
-      <p><span class="command">/home</span> - Телепортироваться домой.</p>
-      <p><span class="command">/tpa [Ник игрока]</span> - Запрос на телепортацию к игроку.</p>
-      <p><span class="command">/tpahere [Ник игрока]</span> - Запрос на телепортацию, чтобы телепортировать игрока к вам.</p>
+    <!-- Информация -->
+    <details open>
+      <summary>Информация</summary>
+      <p><strong>Название сервера:</strong> ПИКМИ КВАДРОБЕРЫ</p>
+      <p><strong>IP Адрес:</strong> <span id="ip" onclick="copyIP()">107.161.154.218:25594</span> (Нажми для копирования)</p>
+      <p><strong>Версия игры:</strong> 1.21.7, либо Bedrock Edition</p>
+      <p><strong>Администраторы сервера:</strong> Z1LIKE, Hakaina</p>
+
+      <details>
+        <summary>Whitelist игроков</summary>
+        <ol>
+          <li>Z1LIKE</li>
+          <li>Hakaina</li>
+          <li>Smirilass</li>
+          <li>Vestnik</li>
+        </ol>
+      </details>
     </details>
 
+    <!-- Команды -->
     <details>
-      <summary>Команды для дома</summary>
-      <p><span class="command">/sethome</span> - Поставить точку дома (Максимум 1 точка).</p>
-      <p><span class="command">/deletehome</span> - Удалить точку дома.</p>
+      <summary>Команды</summary>
+
+      <details>
+        <summary>Основные команды</summary>
+        <p><span class="command">/back</span> — Вернуться на место смерти.</p>
+        <p><span class="command">/home</span> — Телепортироваться домой.</p>
+        <p><span class="command">/tpa [Ник]</span> — Запрос на телепортацию к игроку.</p>
+        <p><span class="command">/tpahere [Ник]</span> — Запрос, чтобы телепортировать игрока к вам.</p>
+      </details>
+
+      <details>
+        <summary>Команды для дома</summary>
+        <p><span class="command">/sethome</span> — Установить точку дома (макс. 1).</p>
+        <p><span class="command">/deletehome</span> — Удалить точку дома.</p>
+      </details>
+
+      <details>
+        <summary>Дополнительные команды телепортации</summary>
+        <p><span class="command">/tpauto</span> — Автоматически принимать запросы /tpa.</p>
+        <p><span class="command">/tpaignore [Ник]</span> — Игнорировать запросы от игрока.</p>
+        <p><span class="command">/tpaccept</span> — Принять запрос на телепортацию.</p>
+        <p><span class="command">/tpahereall</span> — Отправить запрос телепортации всем.</p>
+        <p><span class="command">/tpatoggle</span> — Включить/выключить телепортацию к вам.</p>
+        <p><span class="command">/tpatoggle [Ник]</span> — Включить/выключить телепортацию конкретному игроку.</p>
+        <p><span class="command">/tpdeny</span> — Отклонить запрос на телепортацию.</p>
+        <p><span class="command">/back [Ник]</span> — Вернуть игрока на последнюю позицию.</p>
+        <p><span class="command">/tpcancel [Ник]</span> — Отменить телепортационный запрос.</p>
+      </details>
+
     </details>
 
+    <!-- Карта метро -->
     <details>
-      <summary>Команды для телепорта к игрокам</summary>
-      <p><span class="command">/tpa [Ник игрока]</span> - Запрос на телепортацию к игроку.</p>
-      <p><span class="command">/tpahere [Ник игрока]</span> - Запрос на телепортацию, чтобы телепортировать игрока к вам.</p>
-      <p><span class="command">/tpauto</span> - Авто принимает /tpa запросы от других людей.</p>
-      <p><span class="command">/tpaignore [Ник игрока]</span> - Игнорирует игрока из телепортации запросов.</p>
-      <p><span class="command">/tpaccept</span> - Принять запрос на телепортацию.</p>
-      <p><span class="command">/tpahereall</span> - Отправляет запрос на телепортацию, чтобы телепортировать всех к вам.</p>
-      <p><span class="command">/tpatoggle</span> - Отключения/Включает в себя телепортацию к вам.</p>
-      <p><span class="command">/tpatoggle [Ник игрока]</span> - Отключает/Включает телепортацию конкретному игроку.</p>
-      <p><span class="command">/tpdeny</span> - Отказывает в запросе на телепортацию.</p>
-      <p><span class="command">/back [Ник игрока]</span> - Возвращает игрока на свою последнюю позицию.</p>
-      <p><span class="command">/tpcansel [Ник игрока]</span> - Отменяет запрос на телепортацию конкретному игроку.</p>
+      <summary>Карта метро</summary>
+      <p>Здесь будет карта метро. (Когда я его построю)</p>
     </details>
+
   </div>
 
 </body>
