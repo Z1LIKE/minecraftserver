@@ -173,8 +173,6 @@
       background-color: rgba(0, 0, 0, 0.6);
       position: relative;
       overflow: hidden;
-      border: none !important;
-      box-shadow: none !important;
     }
 
     .slides {
@@ -242,6 +240,7 @@
 
     .news-list details {
       transition: background-color 0.3s ease;
+      margin-bottom: 1.5em; /* Увеличенный интервал между датами */
     }
 
     .news-text {
@@ -297,7 +296,7 @@
       .info-box, .screenshot-slider {
         flex: none;
         width: 100%;
-        padding: 1em 1.2em; /* ✅ Увеличен отступ по бокам */
+        padding: 1em 1.2em;
       }
     }
   </style>
@@ -345,7 +344,7 @@
         <p><strong>Администраторы:</strong> Z1LIKE, Hakaina24</p>
         <p><strong>Модератор:</strong> Los Huylos7162</p>
         <p><strong>Админки и модерки</strong> не продаются!</p>
-        <p><strong>Поддержать валютой:</strong> В разработке</p>
+        <p><strong>Поддержать проект:</strong> В разработке</p>
       </div>
 
       <div class="screenshot-slider">
@@ -375,8 +374,7 @@
     }
 
     function toggleMobileMenu() {
-      const menu = document.getElementById("mobileMenu");
-      menu.classList.toggle("show");
+      document.getElementById("mobileMenu").classList.toggle("show");
     }
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -417,9 +415,9 @@
       });
 
       const newsData = [
-        { date: "25.07.2025", text: "Добалены новости. Расширен блок с информацией. Назначен новый модератор: Los_Huylos7162." },
+        { date: "25.07.2025", text: "На сайт добалены новости. Расширен блок с информацией. Назначен новый модератор Los_Huylos7162. Добавлены новые плагины на сервер." },
         { date: "23.07.2025", text: "Открыт сайт игрового сервера Пикми Квадроберы." },
-        { date: "22.07.2025", text: "Сервер обновлён до версии 1.21.7. Добавлены плагины на телепорт. Добалена поддерка Bedrock Edition." }
+        { date: "22.07.2025", text: "Сервер обновлён до версии 1.21.7. Добавлены плагины на телепорт. Добалена поддержка Bedrock Edition." }
       ];
 
       const newsList = document.getElementById("newsList");
