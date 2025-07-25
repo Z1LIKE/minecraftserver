@@ -254,10 +254,11 @@
     </div>
   </div>
 
-  <script>
-    const serverIP = "107.161.154.218:25594";
-    const apiUrl = `https://api.mcsrvstat.us/2/${serverIP}`;
+<script>
+  const serverIP = "107.161.154.218:25594";
+  const apiUrl = `https://api.mcsrvstat.us/2/${serverIP}`;
 
+  function updateServerStatus() {
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
@@ -265,6 +266,13 @@
         const players = document.getElementById("players");
         const version = document.getElementById("version");
         const playerList = document.getElementById("player-list");
+
+        // Очистка старых данных
+        status.textContent = "";
+        status.classList.remove("online", "offline");
+        players.textContent = "—";
+        version.textContent = "—";
+        playerList.innerHTML = "";
 
         if (data.online) {
           status.textContent = "Онлайн ✅";
@@ -291,8 +299,6 @@
         } else {
           status.textContent = "Оффлайн ❌";
           status.classList.add("offline");
-          players.textContent = "—";
-          version.textContent = "—";
           const li = document.createElement("li");
           li.textContent = "Сервер оффлайн";
           li.style.color = "#aaa";
@@ -300,9 +306,18 @@
         }
       })
       .catch(error => {
-        document.getElementById("status").textContent = "Ошибка 😢";
+        const status = document.getElementById("status");
+        status.textContent = "Ошибка 😢";
+        status.classList.remove("online", "offline");
         console.error("Ошибка при получении данных:", error);
       });
-  </script>
+  }
+
+  // Первичная загрузка
+  updateServerStatus();
+
+  // Автообновление каждые 5 секунд (можно изменить)
+  setInterval(updateServerStatus, 5000);
+</script>
 </body>
 </html>
