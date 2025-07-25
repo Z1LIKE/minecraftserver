@@ -24,6 +24,7 @@
       color: #fff;
       text-transform: uppercase;
       letter-spacing: 0.03em;
+      background: black;
     }
 
     h1, h2, h3, h4, h5, h6, summary {
@@ -123,43 +124,39 @@
     }
 
     .content {
-      padding: 7em 5vw 5vw;
+      padding: 7em 3vw 5vw;
       background-color: rgba(0, 0, 0, 0.6);
       min-height: 100vh;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
+
+    .info-screenshots {
+      display: flex;
+      gap: 2em;
+      align-items: flex-start;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .info-box, .screenshot-slider {
+      flex: 1 1 50%;
+      min-width: 0;
+      margin: 0;
+      padding: 1em;
     }
 
     .info-box {
       border: 1px solid #333;
       border-radius: 8px;
-      padding: 1em;
-      margin-bottom: 2em;
       background-color: rgba(17, 17, 17, 0.6);
     }
 
     h2 {
       font-size: 1.4em;
       margin-top: 0;
-    }
-
-    details {
-      margin-bottom: 1.5em;
-      border: 1px solid #333;
-      border-radius: 8px;
-      padding: 0.8em;
-      background-color: rgba(17, 17, 17, 0.6);
-      transition: background-color 0.3s ease;
-    }
-
-    summary {
-      cursor: pointer;
-      font-size: 1.2em;
-      margin-bottom: 0.5em;
-      user-select: none;
-    }
-
-    .command {
-      color: yellow;
-      font-weight: bold;
     }
 
     #ip {
@@ -169,6 +166,106 @@
       user-select: none;
     }
 
+    .screenshot-slider {
+      max-width: none;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      background-color: rgba(0, 0, 0, 0.6);
+      position: relative;
+      overflow: hidden;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.6s ease;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slides img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .screenshot-slider button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      padding: 0.5em 0.8em;
+      cursor: pointer;
+      z-index: 2;
+      font-size: 1.5em;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+    }
+
+    .screenshot-slider button:hover {
+      background-color: rgba(255, 105, 180, 0.8);
+    }
+
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+    .dots {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin: 0 5px;
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background-color: #ff69b4;
+    }
+
+    .news-section {
+      margin-top: 3em;
+      padding: 1.5em;
+      background-color: rgba(17, 17, 17, 0.6);
+      border-radius: 12px;
+      border: 1px solid #444;
+    }
+
+    .news-list details {
+      transition: background-color 0.3s ease;
+    }
+
+    /* Новые стили для точек и вертикальной компоновки внутри новостей */
+    .news-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+      margin-top: 0.5em;
+    }
+
+    .news-text p {
+      position: relative;
+      padding-left: 1.2em;
+      margin: 0;
+    }
+
+    .news-text p::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #ff69b4;
+      font-weight: bold;
+    }
+
     @media (max-width: 768px) {
       .nav-links {
         display: none;
@@ -176,10 +273,6 @@
 
       .burger {
         display: flex;
-      }
-
-      .mobile-menu {
-        display: none;
       }
 
       .mobile-menu.show {
@@ -197,32 +290,29 @@
       body {
         font-size: 1em;
       }
+
+      .info-screenshots {
+        flex-direction: column;
+      }
+
+      .info-box, .screenshot-slider {
+        flex: none;
+        width: 100%;
+        padding: 1em 0;
+      }
     }
   </style>
-  <script>
-    function copyIP() {
-      const ip = document.getElementById("ip").textContent;
-      navigator.clipboard.writeText(ip).then(() => {
-        alert("IP-адрес скопирован. Ctrl+V, чтобы вставить в игру: " + ip);
-      });
-    }
-
-    function toggleMobileMenu() {
-      const menu = document.getElementById("mobileMenu");
-      menu.classList.toggle("show");
-    }
-  </script>
 </head>
 <body>
   <div class="background"></div>
 
   <div class="navbar">
     <h1>
-  <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
-    <img src="https://joinserver.xyz/cat/images/minecraft-png-icon-16714.png" alt="Логотип" style="height: 1.5em; margin-right: 0.5em;" />
-    ПИКМИ КВАДРОБЕРЫ
-  </a>
-</h1>
+      <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+        <img src="https://joinserver.xyz/cat/images/minecraft-png-icon-16714.png" alt="Логотип" style="height: 1.5em; margin-right: 0.5em;" />
+        ПИКМИ КВАДРОБЕРЫ
+      </a>
+    </h1>
     <div class="nav-links">
       <a href="install.html">Скачать Майнкрафт</a>
       <a href="metro.html">Схема Метро</a>
@@ -245,44 +335,141 @@
   </div>
 
   <div class="content">
-    <div class="info-box">
-      <h2>Информация</h2>
-      <p><strong>IP Адрес сервера:</strong> <span id="ip" onclick="copyIP()">107.161.154.218:25594</span></p>
-      <p><strong>Версия игры:</strong> 1.21.7, либо Bedrock Edition</p>
-      <p><strong>Администраторы сервера:</strong> Z1LIKE, Hakaina24</p>
+    <div class="info-screenshots">
+      <div class="info-box">
+        <h2>Информация о сервере</h2>
+        <p><strong>IP Адрес:</strong> <span id="ip" onclick="copyIP()">107.161.154.218:25594</span></p>
+        <p><strong>Версия игры:</strong> 1.21.7, либо Bedrock Edition</p>
+        <p><strong>Discord проекта:</strong> В разработке</p>
+        <p><strong>Telegram проекта:</strong> В разработке</p>
+		<p><strong>VK проекта:</strong> В разработке</p>
+        <p><strong>Администраторы:</strong> Z1LIKE, Hakaina24</p>
+        <p><strong>Модератор:</strong> Los Huylos7162</p>
+        <p><strong>Админки и модерки</strong> не продаются!</p>
+		<p><strong>Поддержать валютой:</strong> В разработке</p>
+      </div>
+
+      <div class="screenshot-slider">
+        <div class="slides">
+          <img src="Update 25.07.jpg" alt="Screenshot 1" />
+          <img src="Update 23.07.jpg" alt="Screenshot 2" />
+          <img src="Update 22.07.jpg" alt="Screenshot 3" />
+        </div>
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+        <div class="dots"></div>
+      </div>
     </div>
 
-    <details open>
-      <summary>Команды</summary>
-
-      <details>
-        <summary>Основные команды</summary>
-        <p><span class="command">/back</span> — Вернуться на место смерти.</p>
-        <p><span class="command">/home</span> — Телепортироваться домой.</p>
-        <p><span class="command">/tpa [Ник]</span> — Запрос на телепортацию к игроку.</p>
-        <p><span class="command">/tpahere [Ник]</span> — Запрос, чтобы телепортировать игрока к вам.</p>
-      </details>
-
-      <details>
-        <summary>Команды для дома</summary>
-        <p><span class="command">/sethome</span> — Установить точку дома (макс. 1).</p>
-        <p><span class="command">/deletehome</span> — Удалить точку дома.</p>
-      </details>
-
-      <details>
-        <summary>Дополнительные команды телепортации</summary>
-        <p><span class="command">/tpauto</span> — Автоматически принимать запросы /tpa.</p>
-        <p><span class="command">/tpaignore [Ник]</span> — Игнорировать запросы от игрока.</p>
-        <p><span class="command">/tpaccept</span> — Принять запрос на телепортацию.</p>
-        <p><span class="command">/tpahereall</span> — Отправить запрос телепортации всем.</p>
-        <p><span class="command">/tpatoggle</span> — Включить/выключить телепортацию к вам.</p>
-        <p><span class="command">/tpatoggle [Ник]</span> — Включить/выключить телепортацию конкретному игроку.</p>
-        <p><span class="command">/tpdeny</span> — Отклонить запрос на телепортацию.</p>
-        <p><span class="command">/back [Ник]</span> — Вернуть игрока на последнюю позицию.</p>
-        <p><span class="command">/tpcancel [Ник]</span> — Отменить телепортационный запрос.</p>
-      </details>
-    </details>
-
+    <div class="news-section">
+      <h2>Новости проекта</h2>
+      <div class="news-list" id="newsList"></div>
+    </div>
   </div>
+
+  <script>
+    function copyIP() {
+      const ip = document.getElementById("ip").textContent;
+      navigator.clipboard.writeText(ip).then(() => {
+        alert("IP-адрес скопирован. Ctrl+V, чтобы вставить в игру: " + ip);
+      });
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobileMenu");
+      menu.classList.toggle("show");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const slides = document.querySelector(".slides");
+      const images = document.querySelectorAll(".slides img");
+      const total = images.length;
+      const dotsContainer = document.querySelector(".dots");
+      let current = 0;
+
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement("span");
+        dot.classList.add("dot");
+        if (i === 0) dot.classList.add("active");
+        dot.dataset.index = i;
+        dot.onclick = () => {
+          current = i;
+          updateSlider();
+        };
+        dotsContainer.appendChild(dot);
+      }
+
+      const dots = document.querySelectorAll(".dot");
+
+      function updateSlider() {
+        slides.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach(dot => dot.classList.remove("active"));
+        dots[current].classList.add("active");
+      }
+
+      document.querySelector(".next").addEventListener("click", () => {
+        current = (current + 1) % total;
+        updateSlider();
+      });
+
+      document.querySelector(".prev").addEventListener("click", () => {
+        current = (current - 1 + total) % total;
+        updateSlider();
+      });
+
+      // Новости с анимацией, первая раскрыта
+      const newsData = [
+        { date: "25.07.2025", text: "Добалены новости. Расширен блок с информацией. Назначен новый модератор Los_Huylos7162." },
+        { date: "23.07.2025", text: "Открыт сайт игрового сервера Пикми Квадроберы." },
+        { date: "22.07.2025", text: "Сервер обновлён до версии 1.21.7. Добавлены плагины на телепорт. Добалена поддерка Bedrock Edition." }
+      ];
+
+      const newsList = document.getElementById("newsList");
+
+      newsData.forEach((news, index) => {
+        const details = document.createElement("details");
+        const summary = document.createElement("summary");
+        summary.textContent = news.date;
+
+        const content = document.createElement("div");
+        content.style.overflow = "hidden";
+        content.style.transition = "max-height 0.5s ease, opacity 0.5s ease";
+
+        const container = document.createElement("div");
+        container.className = "news-text";
+
+        news.text.split('. ').forEach(item => {
+          if (item.trim().length === 0) return;
+          const p = document.createElement("p");
+          p.textContent = item.trim().endsWith('.') ? item.trim() : item.trim() + '.';
+          container.appendChild(p);
+        });
+
+        content.appendChild(container);
+        details.appendChild(summary);
+        details.appendChild(content);
+        newsList.appendChild(details);
+
+        if (index === 0) {
+          details.setAttribute("open", "");
+          content.style.maxHeight = content.scrollHeight + "px";
+          content.style.opacity = "1";
+        } else {
+          content.style.maxHeight = "0";
+          content.style.opacity = "0";
+        }
+
+        details.addEventListener("toggle", () => {
+          if (details.open) {
+            content.style.maxHeight = content.scrollHeight + "px";
+            content.style.opacity = "1";
+          } else {
+            content.style.maxHeight = "0";
+            content.style.opacity = "0";
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
