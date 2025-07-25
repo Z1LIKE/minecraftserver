@@ -244,7 +244,6 @@
       transition: background-color 0.3s ease;
     }
 
-    /* Новые стили для точек и вертикальной компоновки внутри новостей */
     .news-text {
       display: flex;
       flex-direction: column;
@@ -298,7 +297,7 @@
       .info-box, .screenshot-slider {
         flex: none;
         width: 100%;
-        padding: 1em 0;
+        padding: 1em 1.2em; /* ✅ Увеличен отступ по бокам */
       }
     }
   </style>
@@ -417,7 +416,6 @@
         updateSlider();
       });
 
-      // Новости с анимацией, первая раскрыта
       const newsData = [
         { date: "25.07.2025", text: "Добалены новости. Расширен блок с информацией. Назначен новый модератор Los_Huylos7162." },
         { date: "23.07.2025", text: "Открыт сайт игрового сервера Пикми Квадроберы." },
