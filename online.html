@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Мониторинг сервера — ПикмиКвадроберы</title>
+  <link rel="icon" href="https://joinserver.xyz/cat/images/minecraft-png-icon-16714.png" type="image/png" />
+  <style>
+    @font-face {
+      font-family: 'Minecraft';
+      src: url('fonts/minecraft.ttf') format('truetype');
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Minecraft', sans-serif;
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #fff;
+      background-color: #000;
+    }
+
+    h1, h2 {
+      color: #ff69b4;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('3.png') no-repeat center center;
+      background-size: cover;
+      filter: blur(10px);
+      z-index: -1;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7em 1em;
+      z-index: 100;
+    }
+
+    .navbar h1 {
+      font-size: 1.4em;
+      margin: 0;
+      animation: pulsePink 2.5s ease-in-out infinite;
+      text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493, 0 0 30px #ff69b4;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+    }
+
+    @keyframes pulsePink {
+      0%, 100% { text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493; }
+      50% { text-shadow: 0 0 20px #ff69b4, 0 0 30px #ff1493; }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5em;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover,
+    .mobile-menu a:hover {
+      color: #ff69b4;
+    }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .burger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background-color: rgba(0, 0, 0, 0.95);
+      position: absolute;
+      top: 60px;
+      right: 0;
+      width: 100%;
+      padding: 1em;
+      gap: 1em;
+    }
+
+    .mobile-menu a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.1em;
+      padding: 0.5em 0;
+      text-transform: uppercase;
+    }
+
+    .mobile-menu.show {
+      display: flex;
+    }
+
+    .content {
+      padding: 8em 5vw 5vw;
+      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+    }
+
+    .monitor-box {
+      background-color: rgba(17, 17, 17, 0.8);
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 2em;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 0 10px #ff69b4;
+      text-align: center;
+    }
+
+    .monitor-box p {
+      margin: 0.7em 0;
+    }
+
+    .status {
+      font-weight: bold;
+    }
+
+    .online {
+      color: #00ff00;
+    }
+
+    .offline {
+      color: #ff4444;
+    }
+
+    #player-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1em;
+      margin-top: 1em;
+    }
+
+    #player-list li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.9em;
+      color: #00ffcc;
+    }
+
+    #player-list img {
+      width: 48px;
+      height: 48px;
+      image-rendering: pixelated;
+      border-radius: 6px;
+      margin-bottom: 0.3em;
+      box-shadow: 0 0 5px #00ffcc;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .burger {
+        display: flex;
+      }
+
+      .content {
+        padding: 9em 4vw 4vw;
+      }
+    }
+  </style>
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobileMenu");
+      menu.classList.toggle("show");
+    }
+  </script>
+</head>
+<body>
+  <div class="background"></div>
+
+  <div class="navbar">
+    <h1>
+      <a href="index.html">
+        <img src="https://joinserver.xyz/cat/images/minecraft-png-icon-16714.png" alt="Логотип" style="height: 1.5em; margin-right: 0.5em;" />
+        ПИКМИ КВАДРОБЕРЫ
+      </a>
+    </h1>
+    <div class="nav-links">
+      <a href="install.html">Скачать Майнкрафт</a>
+      <a href="metro.html">Схема Метро</a>
+      <a href="online.html">Мониторинг</a>
+      <a href="whitelist.html">Whitelist проекта</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+    <div class="burger" onclick="toggleMobileMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="install.html">Скачать Майнкрафт</a>
+      <a href="metro.html">Схема Метро</a>
+      <a href="online.html">Мониторинг</a>
+      <a href="whitelist.html">Whitelist проекта</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="monitor-box">
+      <h2>Мониторинг сервера</h2>
+      <p>IP: <span id="ip">107.161.154.218:25594</span></p>
+      <p>Статус: <span id="status" class="status">Загрузка...</span></p>
+      <p>Онлайн: <span id="players">—</span></p>
+      <p>Версия: <span id="version">—</span></p>
+      <p>Игроки онлайн:</p>
+      <ul id="player-list"></ul>
+    </div>
+  </div>
+
+  <script>
+    const serverIP = "107.161.154.218:25594";
+    const apiUrl = `https://api.mcsrvstat.us/2/${serverIP}`;
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        const status = document.getElementById("status");
+        const players = document.getElementById("players");
+        const version = document.getElementById("version");
+        const playerList = document.getElementById("player-list");
+
+        if (data.online) {
+          status.textContent = "Онлайн ✅";
+          status.classList.add("online");
+          players.textContent = `${data.players.online} / ${data.players.max}`;
+          version.textContent = data.version || "Неизвестно";
+
+          if (data.players.list && data.players.list.length > 0) {
+            data.players.list.forEach(player => {
+              const li = document.createElement("li");
+              const avatar = document.createElement("img");
+              avatar.src = `https://mc-heads.net/avatar/${player}/48`;
+              avatar.alt = player;
+              li.appendChild(avatar);
+              li.appendChild(document.createTextNode(player));
+              playerList.appendChild(li);
+            });
+          } else {
+            const li = document.createElement("li");
+            li.textContent = "Нет данных о игроках";
+            li.style.color = "#aaa";
+            playerList.appendChild(li);
+          }
+        } else {
+          status.textContent = "Оффлайн ❌";
+          status.classList.add("offline");
+          players.textContent = "—";
+          version.textContent = "—";
+          const li = document.createElement("li");
+          li.textContent = "Сервер оффлайн";
+          li.style.color = "#aaa";
+          playerList.appendChild(li);
+        }
+      })
+      .catch(error => {
+        document.getElementById("status").textContent = "Ошибка 😢";
+        console.error("Ошибка при получении данных:", error);
+      });
+  </script>
+</body>
+</html>
